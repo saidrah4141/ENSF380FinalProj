@@ -88,5 +88,7 @@
 	<classpathentry kind="lib" path="C:/Users/nemoi/Downloads/selenium-java-4.23.0/failsafe-3.3.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nemoi/Downloads/selenium-java-4.23.0/failsafe-3.3.2-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/nemoi/Downloads/selenium-java-4.23.0/failureaccess-1.0.2-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nemoi/Downloads/gson-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/nemoi/Downloads/commons-csv-1.11.0-bin/commons-csv-1.11.0/commons-csv-1.11.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

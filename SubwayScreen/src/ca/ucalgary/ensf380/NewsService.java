@@ -8,20 +8,16 @@ import java.net.http.HttpResponse;
 public class NewsService {
 	
 	private static final String APIKEY = "bd8ece0d754645b3a4be0827e924a39a";
-	private static final String URL = "https://newsapi.org/v2/everything?q=%s&apiKey=%s";	private String query;
-	public static void main(String[] args) {
-        NewsService service = new NewsService();
-        String query = "donald trump";
-        try {
-            String response = service.getNews(query);
-            System.out.println(response);
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+	private static final String URL = "https://newsapi.org/v2/everything?q=%s&apiKey=%s";	
+	private String query;
 	
-    public String getNews(String query) throws Exception {
+	public NewsService(String query) {
+		this.query=query;
+	}
+	
+	
+	
+    public String getNews() throws Exception {
         String url = String.format(URL, query.replace(" ", "+"), APIKEY);
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()

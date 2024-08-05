@@ -155,7 +155,7 @@ public class TrainManager {
     private static int calculateTime(String homeStationCode, String code) {
         
         int homeStationNumericPart = getNumericPart(homeStationCode);
-        int codeNumericPart = Integer.parseInt(code.substring(1));
+        int codeNumericPart = getNumericPart(code);
 
        
         int difference = Math.abs(homeStationNumericPart - codeNumericPart);
@@ -180,7 +180,7 @@ public class TrainManager {
     }
     
   public int getNearestTrainTimeForStartingStation(String lineName) {
-     int minTime = 1000;
+     int minTime = 100;
      String code = this.homeStation.getStationCode();
 
      for (Train train : this.trains.values()) {
@@ -192,12 +192,12 @@ public class TrainManager {
              }
          }
      }
-     return minTime == 1000 ? -1 : minTime; 
+     return minTime;
  }
 
  
  public int getNearestTrainTimeForEndingStation(String lineName) {
-     int minTime = 1000;
+     int minTime = 100;
      String code = this.homeStation.getStationCode();
 
      for (Train train : this.trains.values()) {
@@ -210,7 +210,7 @@ public class TrainManager {
              }
          }
      }
-     return minTime == 1000 ? -1 : minTime; 
+     return minTime;
  }
 
  public int getNearestTrainTime(String lineName, String direction) {
@@ -219,7 +219,7 @@ public class TrainManager {
      } else if (isEndingStation()) {
          return getNearestTrainTimeForEndingStation(lineName);
      } else {
-         int minTime = 1000;
+         int minTime = 100;
          String code = this.homeStation.getStationCode();
          int homeStationNumber = this.homeStation.getStationNumber();
 
@@ -242,10 +242,21 @@ public class TrainManager {
                  }
              }
          }
-         return minTime == 1000 ? -1 : minTime; 
+         
+         
+     
+  // if there is no forward train heading towards the early stations calculate when the nearest backward train will switch to forward
+     if(minTime==100) {
+    	 if (direction.equalsIgnoreCase("forward")) {
+    		 return(getNearestTrainTime( lineName, "backward")+calculateTime(code,"R01"));// All home stations start with 01
+    	 }
+    	 
      }
+    	 return minTime;
+    
  }
 
     
     
+}
 }

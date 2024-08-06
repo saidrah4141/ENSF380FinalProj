@@ -1,43 +1,65 @@
 package ca.ucalgary.ensf380;
 
-import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
-import javax.swing.JFrame;
+public class WeatherDisplay extends JPanel {
 
-public class WeatherDisplay {
+    private Timer updateTimer;
+    private WeatherService weatherService;
 
-	private JFrame frame;
+    /**
+     * Create the panel.
+     */
+    public WeatherDisplay(String code) {
+        weatherService = new WeatherService(code);
+        initialize();
+        startUpdating();
+    }
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WeatherDisplay window = new WeatherDisplay();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    /**
+     * Initialize the contents of the panel.
+     */
+    private void initialize() {
+        weatherLayout();
+    }
 
-	/**
-	 * Create the application.
-	 */
-	public WeatherDisplay() {
-		initialize();
-	}
+    private void weatherLayout() {
+        this.removeAll(); // Clear existing components if any
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 597, 414);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+        JLabel lblNewLabel = new JLabel("Temperature");
+        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 29));
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+        lblNewLabel.setBounds(87, 30, 295, 59);
+        this.add(lblNewLabel);
 
+        JLabel lblNewLabel_1 = new JLabel(weatherService.getTemp() + " °C");
+        lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 26));
+        lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_1.setBounds(97, 77, 280, 208);
+        this.add(lblNewLabel_1);
+        
+        this.revalidate();
+        this.repaint();
+    }
+
+    private void startUpdating() {
+        updateTimer = new Timer(20000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateData();
+            }
+        });
+        updateTimer.start();
+    }
+
+    private void updateData() {
+        weatherLayout();
+    }
 }

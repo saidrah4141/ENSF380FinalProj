@@ -15,10 +15,11 @@ public class TrainManager {
     private final String RED_START="R01";
     private final String BLUE_END="B44";
     private final String BLUE_START="B01";
-    private final String GREEN_END="R33";
+    private final String GREEN_END="G33";
     private final String GREEN_START="G01";
     
     public TrainManager(String homeStationCode) {
+    	
         this.trains = service.extractTrainData(TRAIN_PATH);
         this.mapStations = service.extractMapData(MAP_PATH);
         this.homeStation=getStationFromCode(homeStationCode);
@@ -241,18 +242,26 @@ public class TrainManager {
                      }
                  }
              }
-         }
-         
-         
-     
-  // if there is no forward train heading towards the early stations calculate when the nearest backward train will switch to forward
-     if(minTime==100) {
-    	 if (direction.equalsIgnoreCase("forward")) {
-    		 return(getNearestTrainTime( lineName, "backward")+calculateTime(code,"R01"));// All home stations start with 01
-    	 }
+         }  
+         // if there is no forward train heading towards the early stations calculate when the nearest backward train will switch to forward
+         if(minTime==100) {
+        	 if (direction.equalsIgnoreCase("forward")) {
+        		 return(getNearestTrainTime( lineName, "backward")+calculateTime(code,"R01"));// All home stations start with 01
+        	 } else if(direction.equalsIgnoreCase("backward")) {
+        		 switch (lineName) {
+                 case "R":
+                	 return(getNearestTrainTime( lineName, "forward")+calculateTime(code,"R43"));
+				case "B":
+                	 return(getNearestTrainTime( lineName, "forward")+calculateTime(code,"B44"));
+				case "G":
+                	 return(getNearestTrainTime( lineName, "forward")+calculateTime(code,"G33"));
+				default:
+                     break;
+             }
+        	 }
     	 
-     }
-    	 return minTime;
+         }
+    	 	return minTime;
     
  }
 

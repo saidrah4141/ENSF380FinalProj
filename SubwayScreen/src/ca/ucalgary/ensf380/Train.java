@@ -74,14 +74,5 @@ public class Train implements StationNumber {
     	this.y=y;
     }
 
-    @Override
-    public String toString() {
-        return "Train{" +
-               "lineName=" + lineName +
-               ", trainNum=" + trainNum +
-               ", stationCode='" + stationCode + '\'' +
-               ", direction='" + direction + '\'' +
-               ", destination='" + destination + '\'' +
-               '}';
-    }
+    
 }

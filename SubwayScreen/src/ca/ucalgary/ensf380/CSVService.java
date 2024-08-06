@@ -85,13 +85,13 @@ public class CSVService {
 	}
 
 	
-	public Map<Integer, Coordinate> extractLineCoordinates(String linneFilePath) {
+	public Map<Integer, Coordinate> extractLineCoordinates(String lineFilePath) {
 		 Map<Integer, Coordinate> lineCoord = new HashMap<>();
 		    BufferedReader reader =null;
 		    String line ="";
 		    int counter=1;
 		    try {
-		    	reader = new BufferedReader(new FileReader(linneFilePath));
+		    	reader = new BufferedReader(new FileReader(lineFilePath));
 		    	reader.readLine(); 
 		    	while((line = reader.readLine())!=null) {
 		    		String[] row = line.split(",");
@@ -118,5 +118,5 @@ public class CSVService {
 		    return lineCoord;
 	}
 	
-
+	
 }

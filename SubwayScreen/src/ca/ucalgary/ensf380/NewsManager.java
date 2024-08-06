@@ -41,7 +41,7 @@ public class NewsManager {
             currentTitle = currentArticle.getTitle();
             currentArticleIndex++;
         } else {
-            // No more articles to display
+            
             currentAuthor = null;
             currentTitle = null;
         }

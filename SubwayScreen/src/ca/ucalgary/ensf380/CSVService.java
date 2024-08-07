@@ -128,4 +128,31 @@ public class CSVService {
         }
         return lineCoord;
     }
+    public Map<String, String> extractMapNameData(String mapFilePath) {
+        Map<String, String> stations = new HashMap<>();
+        BufferedReader reader = null;
+        String line = "";
+        try {
+            reader = new BufferedReader(new FileReader(mapFilePath));
+            reader.readLine(); 
+            while ((line = reader.readLine()) != null) {
+                String[] row = line.split(",");
+                String stationName = row[4].trim();
+                String stationCode = row[3].trim();            
+                stations.put(stationCode, stationName);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) {
+                    reader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return stations;
+    }
+    
 }
